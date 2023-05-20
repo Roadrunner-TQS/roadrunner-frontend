@@ -1,13 +1,15 @@
-import { Admin, Resource } from "react-admin";
-import { ShopList, ShopCreate } from "./shops";
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import { Dashboard } from "./Dashboard";
-import { authProvider } from './authProvider';
+import * as React from 'react';
+import { Admin, Resource } from 'react-admin';
+import restProvider from 'ra-data-simple-rest';
+import { PickUpPointList } from './components/PickUpPointList';
 
-const App = () => (
-  <Admin authProvider={authProvider} dashboard={Dashboard}>
-    <Resource name="shops" list={ShopList} create={ShopCreate} icon={StorefrontIcon} />
-  </Admin>
-);
+const App: React.FC = () => {
+    return (
+    <Admin dataProvider={restProvider('http://localhost:5000')}>
+        <Resource name="pickUpLocation" list={PickUpPointList} />
+    </Admin>);
+};
 
 export default App;
+
+
