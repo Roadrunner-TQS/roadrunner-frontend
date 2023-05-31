@@ -26,7 +26,6 @@ export const AuthProvider: React.FC<AuthProps> = ({children}: React.PropsWithChi
         await queryClient.resetQueries(['user'])
     }
     const logout = async () => {
-        // await queryClient.resetQueries(['articles'])
         await queryClient.resetQueries(['user'])
         setUser(null)
         setToken("")

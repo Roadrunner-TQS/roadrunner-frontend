@@ -8,7 +8,7 @@ interface NavbarProps {
 
 export const Navbar: React.FunctionComponent<NavbarProps> = (props) => {
 
-    const {user,logout} = useAuth();
+    const {user, logout} = useAuth();
 
 
     return <NavbarFB
@@ -37,7 +37,7 @@ export const Navbar: React.FunctionComponent<NavbarProps> = (props) => {
         <span className="block text-sm">
           {user?.firstName} {user?.lastName}
         </span>
-        <span className="block truncate text-sm font-medium">
+                    <span className="block truncate text-sm font-medium">
           {user?.email}
         </span>
                 </Dropdown.Header>
@@ -48,16 +48,17 @@ export const Navbar: React.FunctionComponent<NavbarProps> = (props) => {
             <NavbarFB.Toggle/>
         </div>
         <NavbarFB.Collapse>
-            {navbarLinks.map((link) => {
-                    return <Link key={link.title} to={link.path}>
+            {navbarLinks.map((link) => <>
+                    {user && link.access?.includes(user.role) && <Link key={link.title} to={link.path}>
                         <NavbarFB.Link className={"flex flex-row items-center space-x-2"}
-                            active={window.location.pathname === link.path}
+                                       active={window.location.pathname === link.path}
                         >
                             <link.icon className={"text-2xl"}/>
                             <span>{link.title}</span>
                         </NavbarFB.Link>
                     </Link>
-                }
+                    }
+                </>
             )}
         </NavbarFB.Collapse>
     </NavbarFB>
