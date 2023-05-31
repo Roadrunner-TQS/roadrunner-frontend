@@ -7,29 +7,45 @@ import {URLS} from "@/urls";
 import {PickUpPoint} from "@/types";
 import {Loader} from "@/components/loader";
 import {CiSearch} from "react-icons/all";
+import {useAuth} from "@/contexts/auth";
 
 interface PickUpPointsProps {
 }
 
 
-export const PickUpPoints: React.FunctionComponent<PickUpPointsProps> = (props) => {
+export const PickUpPoints: React.FunctionComponent<PickUpPointsProps> = () => {
+
+    const {token} = useAuth();
 
     const {data, status, refetch} = useQuery<PickUpPoint[]>({
         queryKey: ['pickup-points'],
         queryFn: async () => {
-            const {data} = await axios.get(URLS.pickUp);
+            const {data} = await axios.get(URLS.pickUp,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
             return data;
         }
     });
     const [city, setCity] = React.useState<string>("");
 
     const acceptPickUpPoint = async (id: string) => {
-        await axios.put(URLS.pickUpDetails(id), {})
+        await axios.put(URLS.pickUpDetails(id), {},{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         await refetch();
     }
 
     const deletePickUpPoint = async (id: string) => {
-        await axios.delete(URLS.pickUpDetails(id))
+        await axios.delete(URLS.pickUpDetails(id),{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         await refetch();
     }
 

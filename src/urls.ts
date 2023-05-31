@@ -10,4 +10,5 @@ export const URLS = {
     login: `${BASE_URL}/auth/login`,
     register: `${BASE_URL}/auth/signup`,
     me: `${BASE_URL}/auth/me`,
+    editPackage: (id:string)=> `${BASE_URL}/shop/package/${id}`,
 }

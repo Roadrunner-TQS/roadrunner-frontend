@@ -7,16 +7,22 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import {URLS} from "@/urls";
 import moment from "moment";
+import {useAuth} from "@/contexts/auth";
 
 interface PackageProps {
 }
 
 export const Package: React.FunctionComponent<PackageProps> = (props) => {
+    const {token} = useAuth();
     const params = useParams()
     const {data, status} = useQuery<PackageType>({
         queryKey: ['package', params.id],
         queryFn: async () => {
-            const {data} = await axios.get(URLS.packageDetails(params.id || ""));
+            const {data} = await axios.get(URLS.packageDetails(params.id || ""),{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             return data;
         }
     });

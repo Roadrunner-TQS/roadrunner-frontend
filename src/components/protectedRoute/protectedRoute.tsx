@@ -3,7 +3,7 @@ import {Navigate} from "react-router-dom";
 import React from "react";
 
 
-export const ProtectedRoute = ({ page }: { page: React.ComponentType }): React.ReactElement => {
+export const ProtectedRoute = ({ page, authorized }: { page: React.ComponentType, authorized: string[] }): React.ReactElement => {
 
   const {user} = useAuth();
 
@@ -11,5 +11,9 @@ export const ProtectedRoute = ({ page }: { page: React.ComponentType }): React.R
     return <Navigate to={"/signin"} replace/>
   }
 
-  return React.createElement(page, {});
+  if (authorized.includes(user.role)) {
+    return React.createElement(page, {});
+  }
+
+    return <Navigate to={"/"} replace/>
 };

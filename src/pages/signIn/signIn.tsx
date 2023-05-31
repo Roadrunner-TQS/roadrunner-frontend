@@ -7,6 +7,7 @@ import axios from "axios";
 import {URLS} from "@/urls";
 import {useMutation, useQuery} from "react-query";
 import {useAuth} from "@/contexts/auth";
+import {ToastError} from "@/components/toastError";
 
 interface SignInProps {
 }
@@ -21,10 +22,11 @@ const loginSchema = Yup.object().shape({
     password: Yup.string().required("Password is required"),
 });
 
-export const SignIn: React.FunctionComponent<SignInProps> = (props) => {
+export const SignIn: React.FunctionComponent<SignInProps> = () => {
 
     const navigate = useNavigate();
     const {setToken, token, login} = useAuth();
+    const [error, setError] = React.useState<string>("");
 
     const signInMutation = useMutation({
         mutationFn: async (values: ILogin) => {
@@ -33,9 +35,9 @@ export const SignIn: React.FunctionComponent<SignInProps> = (props) => {
         },
         onSuccess: (data) => {
             setToken(data.token)
-            login(data.user)
         },
-        onError: (error) => {
+        onError: (error: any) => {
+            setError(error.response.data.message)
         }
     })
 
@@ -100,5 +102,6 @@ export const SignIn: React.FunctionComponent<SignInProps> = (props) => {
                 Don't have an account? <Link to={"/signup"} className={"text-blue-500"}>Sign up</Link>
             </p>
         </Card>
+        {error !== "" && <ToastError message={error} setError={setError}/>  }
     </div>
 };
