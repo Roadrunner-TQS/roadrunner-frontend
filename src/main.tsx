@@ -10,7 +10,6 @@ import {Shops} from "@/pages/shops";
 import {Packages} from "@/pages/packages";
 import {Statistics} from "@/pages/statistics";
 import {Package} from "@/pages/package";
-import {Tests} from "@/pages/tests";
 import {SignUp} from "@/pages/signUp";
 import {SignIn} from "@/pages/signIn";
 import {AuthProvider} from "@/contexts/auth";
@@ -42,10 +41,6 @@ const router = createBrowserRouter([
     {
         path: '/statistics',
         element: <Statistics/>
-    },
-    {
-        path: '/tests',
-        element: <Tests/>
     },
     {
         path: '/signup',
