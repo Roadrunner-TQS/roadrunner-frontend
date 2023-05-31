@@ -1,15 +1,9 @@
-FROM node:lts-alpine AS build
-WORKDIR /app
-COPY package.json /app
+FROM node:19-alpine AS build
+WORKDIR /
+COPY .  .
 
 # Install dependencies
 RUN npm i
 
-# Copy source code
-ADD . /app
-
 # Build
-RUN npm run build
-
-# Serve
-CMD ["npm", "run", "preview"]
+CMD npm run build && npm run preview
