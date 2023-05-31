@@ -34,7 +34,7 @@ export interface PickUpPoint {
 export interface PackageState {
     id: string;
     date: string;
-    state: EPackageState;
+    state: string;
 }
 export interface Package {
     id: string;
@@ -42,8 +42,69 @@ export interface Package {
     customer: Customer;
     pickUpLocation: PickUpPoint;
     shop: Shop;
-    status: EPackageState;
+    status: string;
+}
+export interface IState {
+    state: string;
+    nextStates: {
+        state: string;
+        authorizedRoles: string[];
+    }[]
+
 }
 
-export type EPackageState = "INTRANSIT" | "SHIPPING" | "AVAILABLE" | "DELIVERED" | "RETURNED" | "FORGOTEN";
-export const APackageState = ["INTRANSIT", "SHIPPING", "AVAILABLE", "DELIVERED","RETURNED", "FORGOTEN"]
+
+export const possibleStates: IState[] = [
+    {
+        state: "PENDING",
+        nextStates: [
+            {
+                state: "CANCELLED",
+                authorizedRoles: ["CUSTOMER"]
+            },
+            {
+                state: "SHIPPING",
+                authorizedRoles: ["ROLE_ADMIN"]
+            },
+            {
+                state: "DENIED",
+                authorizedRoles: ["ROLE_ADMIN"]
+            },
+        ]
+    },
+    {
+        state: "SHIPPING",
+        nextStates: [
+            {
+                state: "INTRANSIT",
+                authorizedRoles: []
+            }
+        ]
+    },
+    {
+        state: "INTRANSIT",
+        nextStates: [
+            {
+                state: "AVAILABLE",
+                authorizedRoles: []
+            }
+        ]
+    },
+    {
+        state: "AVAILABLE",
+        nextStates: [
+            {
+                state: "DELIVERED",
+                authorizedRoles: ["ROLE_PARTNER"]
+            },
+            {
+                state: "FORGOTEN",
+                authorizedRoles: []
+            },
+            {
+                state: "RETURNED",
+                authorizedRoles: ["CUSTOMER"]
+            }
+        ]
+    }
+]
