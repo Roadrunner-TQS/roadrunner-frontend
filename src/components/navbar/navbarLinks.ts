@@ -1,4 +1,4 @@
-import {CiBoxes, CiLocationOn, CiShop, FaAd, SlChart} from "react-icons/all";
+import {CiBoxes, CiLocationOn, CiShop, SlChart} from "react-icons/all";
 import {IconType} from "react-icons";
 
 interface NavbarLink {

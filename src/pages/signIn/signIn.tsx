@@ -22,7 +22,7 @@ const loginSchema = Yup.object().shape({
     password: Yup.string().required("Password is required"),
 });
 
-export const SignIn: React.FunctionComponent<SignInProps> = (props) => {
+export const SignIn: React.FunctionComponent<SignInProps> = () => {
 
     const navigate = useNavigate();
     const {setToken, token, login} = useAuth();

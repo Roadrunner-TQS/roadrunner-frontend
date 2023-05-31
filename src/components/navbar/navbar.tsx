@@ -6,7 +6,7 @@ import {useAuth} from "@/contexts/auth";
 interface NavbarProps {
 }
 
-export const Navbar: React.FunctionComponent<NavbarProps> = (props) => {
+export const Navbar: React.FunctionComponent<NavbarProps> = () => {
 
     const {user, logout} = useAuth();
 

@@ -1,4 +1,3 @@
-import styles from "./toastError.module.css";
 import {Toast} from "flowbite-react";
 import React from "react";
 import {BiErrorCircle} from "react-icons/all";

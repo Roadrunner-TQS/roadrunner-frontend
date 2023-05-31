@@ -13,7 +13,7 @@ interface PickUpPointsProps {
 }
 
 
-export const PickUpPoints: React.FunctionComponent<PickUpPointsProps> = (props) => {
+export const PickUpPoints: React.FunctionComponent<PickUpPointsProps> = () => {
 
     const {token} = useAuth();
 

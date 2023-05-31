@@ -12,10 +12,10 @@ import {useAuth} from "@/contexts/auth";
 interface PackagesProps {
 }
 
-export const Packages: React.FunctionComponent<PackagesProps> = (props) => {
+export const Packages: React.FunctionComponent<PackagesProps> = () => {
 
     const [edit, setEdit] = React.useState<string>("");
-    const selectRef = React.useRef<HTMLSelectElement>(null);
+    const selectRef = React.useRef<HTMLSelectElement|null>(null);
     const [pickUp, setPickUp] = React.useState<string>("");
     const {token, user} = useAuth();
 

@@ -30,7 +30,7 @@ const shopSchema = Yup.object().shape({
 });
 
 
-export const Shops: React.FunctionComponent<ShopsProps> = (props) => {
+export const Shops: React.FunctionComponent<ShopsProps> = () => {
 
     const {token} = useAuth();
     const {data, status, refetch} = useQuery<Shop[]>({
