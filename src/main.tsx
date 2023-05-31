@@ -9,8 +9,8 @@ import {PickUpPoints} from "@/pages/pickUpPoints";
 import {Shops} from "@/pages/shops";
 import {Packages} from "@/pages/packages";
 import {Statistics} from "@/pages/statistics";
-import {ReactQueryDevtools} from "react-query/devtools";
 import {Package} from "@/pages/package";
+import {Tests} from "@/pages/tests";
 import {SignUp} from "@/pages/signUp";
 import {SignIn} from "@/pages/signIn";
 import {AuthProvider} from "@/contexts/auth";
@@ -25,23 +25,27 @@ const router = createBrowserRouter([
     },
     {
         path: '/pickups',
-        element: <ProtectedRoute page={PickUpPoints}/>,
+        element: <ProtectedRoute page={PickUpPoints} authorized={['ROLE_ADMIN', 'ROLE_PARTNER']}/>,
     },
     {
         path: '/shops',
-        element: <Shops/>,
+        element: <ProtectedRoute page={Shops} authorized={['ROLE_ADMIN']}/>,
     },
     {
         path: '/packages',
-        element: <ProtectedRoute page={Packages}/>,
+        element: <ProtectedRoute page={Packages} authorized={['ROLE_ADMIN', 'ROLE_PARTNER']}/>,
     },
     {
         path: '/packages/:id',
-        element: <Package/>
+        element: <ProtectedRoute page={Package} authorized={['ROLE_ADMIN', 'ROLE_PARTNER']}/>
     },
     {
         path: '/statistics',
         element: <Statistics/>
+    },
+    {
+        path: '/tests',
+        element: <Tests/>
     },
     {
         path: '/signup',
@@ -63,7 +67,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <QueryClientProvider client={queryClient}>
                 <AuthProvider>
                     <RouterProvider router={router}/>
-                    <ReactQueryDevtools/>
                 </AuthProvider>
             </QueryClientProvider>
         </Flowbite>
