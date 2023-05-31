@@ -6,7 +6,17 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-        '@': '/src'
+      '@': '/src'
     }
+  },
+  server: {
+    watch: {
+      usePolling: true,
+    },
+    host: true,
+    strictPort: true,
+  },
+  preview: {
+    port: 8085,
   }
 })
