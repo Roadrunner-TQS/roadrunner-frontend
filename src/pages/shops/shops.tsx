@@ -8,35 +8,50 @@ import React from "react";
 import {Button, Label, Modal, Table} from "flowbite-react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
+import {useAuth} from "@/contexts/auth";
 
 interface ShopsProps {
 }
 
 interface ShopForm {
     name: string;
-    slugs: string;
     address: string;
+    city: string;
+    longitude: string;
+    latitude: string;
 }
 
 const shopSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
-    slugs: Yup.string().required("Slug is required"),
     address: Yup.string().required("Address is required"),
+    city: Yup.string().required("City is required"),
+    latitude: Yup.string().required("Latitude is required"),
+    longitude: Yup.string().required("Longitude is required"),
 });
 
 
 export const Shops: React.FunctionComponent<ShopsProps> = (props) => {
 
+    const {token} = useAuth();
     const {data, status, refetch} = useQuery<Shop[]>({
         queryKey: 'shops',
         queryFn: async () => {
-            const {data} = await axios.get(URLS.shop);
+            const {data} = await axios.get(URLS.shop, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             return data;
         }
     });
 
     const deleteShop = async (id: string) => {
-        await axios.delete(URLS.shopDetails(id))
+        await axios.delete(URLS.shopDetails(id),
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
         await refetch();
     }
 
@@ -95,7 +110,12 @@ export const Shops: React.FunctionComponent<ShopsProps> = (props) => {
             <Modal.Body>
                 <Formik initialValues={{} as ShopForm}
                         onSubmit={async (values, actions) => {
-                            await axios.post(URLS.shop, values)
+                            await axios.post(URLS.shop, values,
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${token}`
+                                    }
+                                })
                             await refetch();
                             actions.setSubmitting(false);
                             actions.resetForm();
@@ -109,19 +129,29 @@ export const Shops: React.FunctionComponent<ShopsProps> = (props) => {
                                className={"h-12 w-full border border-gray-300 rounded-md px-2"}
                         />
                         <ErrorMessage name={"name"} component={"div"} className={"text-red-500"}/>
-
-                        <Label htmlFor={"slugs"} value={"Slug"}/>
-                        <Field id={"slugs"} name={"slugs"} placeholder={"Slug"}
-                               className={"h-12 w-full border border-gray-300 rounded-md px-2"}
-                        />
-                        <ErrorMessage name={"slugs"} component={"div"} className={"text-red-500"}/>
-
                         <Label htmlFor={"address"} value={"Address"}/>
                         <Field id={"address"} name={"address"} placeholder={"Address"}
                                className={"h-12 w-full border border-gray-300 rounded-md px-2"}
                         />
                         <ErrorMessage name={"address"} component={"div"} className={"text-red-500"}/>
 
+                        <Label htmlFor={"city"} value={"City"}/>
+                        <Field id={"city"} name={"city"} placeholder={"City"}
+                                 className={"h-12 w-full border border-gray-300 rounded-md px-2"}
+                        />
+                        <ErrorMessage name={"city"} component={"div"} className={"text-red-500"}/>
+
+                        <Label htmlFor={"latitude"} value={"Latitude"}/>
+                        <Field id={"latitude"} name={"latitude"} placeholder={"Latitude"}
+                                 className={"h-12 w-full border border-gray-300 rounded-md px-2"}
+                        />
+                        <ErrorMessage name={"latitude"} component={"div"} className={"text-red-500"}/>
+
+                        <Label htmlFor={"longitude"} value={"Longitude"}/>
+                        <Field id={"longitude"} name={"longitude"} placeholder={"Longitude"}
+                                    className={"h-12 w-full border border-gray-300 rounded-md px-2"}
+                        />
+                        <ErrorMessage name={"longitude"} component={"div"} className={"text-red-500"}/>
                         <Button gradientMonochrome={"success"} type={"submit"}
                             onClick={onClose}
                         >Add</Button>
