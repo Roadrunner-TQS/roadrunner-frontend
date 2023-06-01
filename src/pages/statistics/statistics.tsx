@@ -100,7 +100,7 @@ export const Statistics: React.FunctionComponent<StatisticsProps> = (props) => {
             </Loader>
             <div className={"grid grid-cols-2 mt-2 gap-2"}>
                 <Card>
-                    <h1 className={"font-medium text-5xl"}>Packages by Pickup</h1>
+                    <h1 className={"font-medium text-5xl"}>Packages by Status</h1>
                     <ResponsiveContainer width="100%" className={"items-center flex"}>
                         <Loader status={status2}>
                             <BarChart width={730} height={550} data={stats2}>
