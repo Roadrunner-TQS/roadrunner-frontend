@@ -33,8 +33,8 @@ export interface PickUpPoint {
 }
 export interface PackageState {
     id: string;
-    date: string;
-    state: string;
+    timestamp: string;
+    status: string;
 }
 export interface Package {
     id: string;
@@ -86,7 +86,7 @@ export const possibleStates: IState[] = [
         nextStates: [
             {
                 state: "AVAILABLE",
-                authorizedRoles: []
+                authorizedRoles: ["ROLE_PARTNER"]
             }
         ]
     },
@@ -103,8 +103,19 @@ export const possibleStates: IState[] = [
             },
             {
                 state: "RETURNED",
-                authorizedRoles: ["CUSTOMER"]
+                authorizedRoles: ["ROLE_PARTNER"]
             }
         ]
     }
 ]
+
+export interface PackagesByPickUp {
+    name: string;
+    packages: number;
+}
+
+export interface PackagesByState {
+    state: string;
+    packages: number;
+}
+

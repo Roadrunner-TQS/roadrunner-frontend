@@ -78,10 +78,10 @@ export const Package: React.FunctionComponent<PackageProps> = (props) => {
                                     <Timeline.Point/>
                                     <Timeline.Content>
                                         <Timeline.Title>
-                                            {state.state}
+                                            {state.status}
                                         </Timeline.Title>
                                         <Timeline.Time>
-                                            {moment(state.date).format('MMMM Do YYYY h:mm:ss a')}
+                                            {moment(state.timestamp).format('MMMM Do YYYY h:mm:ss a')}
                                         </Timeline.Time>
                                     </Timeline.Content>
                                 </Timeline.Item>
