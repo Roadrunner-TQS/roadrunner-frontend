@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/statistics',
-        element: <Statistics/>
+        element: <ProtectedRoute page={Statistics} authorized={['ROLE_ADMIN']}/>
     },
     {
         path: '/signup',
